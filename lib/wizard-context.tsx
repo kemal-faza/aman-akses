@@ -3,6 +3,7 @@
 import {
   createContext,
   useContext,
+  useMemo,
   useReducer,
   type Dispatch,
   type ReactNode,
@@ -154,8 +155,9 @@ const WizardContext = createContext<WizardContextValue | null>(null)
 
 export function WizardProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(wizardReducer, undefined, createInitialState)
+  const value = useMemo(() => ({ state, dispatch }), [state, dispatch])
   return (
-    <WizardContext.Provider value={{ state, dispatch }}>
+    <WizardContext.Provider value={value}>
       {children}
     </WizardContext.Provider>
   )

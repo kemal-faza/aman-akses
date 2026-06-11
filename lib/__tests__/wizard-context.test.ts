@@ -7,6 +7,12 @@ const wrapper = ({ children }: { children: React.ReactNode }) =>
   React.createElement(WizardProvider, null, children)
 
 describe("WizardContext", () => {
+  it("should throw when used outside WizardProvider", () => {
+    expect(() =>
+      renderHook(() => useWizard()),
+    ).toThrow("useWizard must be used within a WizardProvider")
+  })
+
   it("should start at select step with empty selection", () => {
     const { result } = renderHook(() => useWizard(), { wrapper })
     expect(result.current.state.step).toBe("select")

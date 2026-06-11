@@ -1,15 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useJournal } from "@/lib/journal-context";
 import { JournalList } from "../_components/journal/JournalList";
 import { JournalSheet } from "../_components/journal/JournalSheet";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
+import { seedJournalData } from "@/lib/repository-localstorage";
 import type { JournalEntryInput, JournalNote } from "@/lib/types";
 
 export default function JurnalAmanPage() {
   const { entries, loading, error, createEntry, updateEntry, deleteEntry } = useJournal();
+
+  useEffect(() => {
+    seedJournalData();
+  }, []);
 
   const [sheetOpen, setSheetOpen] = useState(false);
   const [sheetMode, setSheetMode] = useState<"create" | "edit">("create");

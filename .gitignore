@@ -51,3 +51,6 @@ docs/
 # images at root
 Screenshot_*.png
 WhatsApp*.jpeg
+
+# code-review-graph
+.code-review-graph

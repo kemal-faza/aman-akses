@@ -55,7 +55,7 @@ describe("JournalSheet", () => {
       />
     );
     await user.click(screen.getByRole("button", { name: /Simpan/ }));
-    expect(screen.getByText(/Judul wajib diisi/)).toBeInTheDocument();
+    expect(screen.getByText(/Deskripsi kejadian wajib diisi/)).toBeInTheDocument();
     expect(onSave).not.toHaveBeenCalled();
   });
 
@@ -107,6 +107,7 @@ describe("JournalSheet", () => {
     
     expect(onSave).toHaveBeenCalledWith(
       expect.objectContaining({
+        title: "Deskripsi kejadian", // derived from first line of content
         content: "Deskripsi kejadian",
         mood: "sedih",
         involvedParties: "Orang X",

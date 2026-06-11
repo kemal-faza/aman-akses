@@ -19,7 +19,6 @@ interface JournalSheetProps {
 }
 
 export function JournalSheet({ open, onOpenChange, mode, entry, onSave }: JournalSheetProps) {
-  const [title, setTitle] = useState(entry?.title ?? "");
   const [date, setDate] = useState(entry?.date ?? "");
   const [content, setContent] = useState(entry?.content ?? "");
   const [mood, setMood] = useState<Mood | null>(entry?.mood ?? null);
@@ -30,7 +29,6 @@ export function JournalSheet({ open, onOpenChange, mode, entry, onSave }: Journa
   const [saving, setSaving] = useState(false);
 
   const resetForm = () => {
-    setTitle("");
     setDate("");
     setContent("");
     setMood(null);
@@ -69,7 +67,7 @@ export function JournalSheet({ open, onOpenChange, mode, entry, onSave }: Journa
     const newErrors: Record<string, string> = {};
 
     if (!date.trim()) newErrors.date = "Tanggal wajib diisi";
-    if (!content.trim()) newErrors.title = "Judul wajib diisi";
+    if (!content.trim()) newErrors.content = "Deskripsi kejadian wajib diisi";
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -143,7 +141,7 @@ export function JournalSheet({ open, onOpenChange, mode, entry, onSave }: Journa
               placeholder="Ceritakan apa yang terjadi..."
               required
             />
-            {errors.title && <p className="text-sm text-destructive">{errors.title}</p>}
+            {errors.content && <p className="text-sm text-destructive">{errors.content}</p>}
           </div>
 
           {/* Involved Parties */}

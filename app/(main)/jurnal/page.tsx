@@ -74,6 +74,7 @@ export default function JurnalAmanPage() {
 
       {/* Sheet */}
       <JournalSheet
+        key={sheetMode === "edit" ? editingEntry?.id ?? "new" : "create"}
         open={sheetOpen}
         onOpenChange={setSheetOpen}
         mode={sheetMode}

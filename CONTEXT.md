@@ -120,3 +120,59 @@ _Avoid_: "coming soon", "under construction", "WIP"
 Tiga kartu statistik di Dashboard yang menampilkan jumlah Catatan Jurnal, Kronologi Tersimpan, dan Fitur Aktif.
 
 _Avoid_: "stats", "dashboard metrics", "counters"
+
+---
+
+## Brankas Bukti / Evidence Vault
+Modul penyimpanan aman untuk berkas bukti hukum dan medis. Semua file dienkripsi di sisi klien (E2E). Diakses dengan PIN 6-digit di awal sesi. Berisi Berkas yang terorganisir dalam Kategori.
+
+_Avoid_: "vault", "storage", "file manager"
+
+---
+
+## Berkas / EvidenceFile
+Satu file yang disimpan di Brankas Bukti. Memiliki Kategori (Foto/Audio/Chat/Dokumen/Catatan Medis), nama, ukuran, thumbnail, dan status kunci. Dapat ditautkan ke banyak Catatan (many-to-many).
+
+_Avoid_: "file", "evidence", "attachment"
+
+---
+
+## Kategori Berkas / EvidenceCategory
+Lima kategori untuk mengorganisir Berkas: Foto, Audio, Chat, Dokumen, dan Catatan Medis. Masing-masing memiliki ikon Lucide dan warna badge yang berbeda.
+
+_Avoid_: "folder", "group", "type"
+
+---
+
+## Panel Keamanan / Security Panel
+Panel di sisi kanan halaman Brankas Bukti yang menampilkan: status kunci/terbuka (indikator hijau), PIN (tersembunyi), pengaturan auto-lock, dan tombol "Kunci Sekarang". Selalu terlihat agar pengguna selalu tahu siapa yang bisa mengakses data.
+
+_Avoid_: "security sidebar", "lock panel", "privacy panel"
+
+---
+
+## PIN Brankas / Vault PIN
+Kode 6-digit yang digunakan untuk membuka dan mengunci Brankas Bukti. Di-set saat pertama kali mengakses Brankas. Tidak ada recovery — sejalan dengan privasi maksimum. Di-derive menjadi encryption key via PBKDF2.
+
+_Avoid_: "password", "passcode", "unlock code"
+
+---
+
+## Enkripsi Ujung-ke-Ujung (E2E)
+Metode enkripsi di mana file dienkripsi di perangkat pengguna sebelum disimpan. Backend tidak dapat membaca isi file. Hanya pengguna dengan PIN yang bisa mendekripsi. Diimplementasikan dengan Web Crypto API (AES-GCM 256-bit).
+
+_Avoid_: "client-side encryption", "local encryption"
+
+---
+
+## Kartu Berkas / VaultFileCard
+Kartu individual dalam grid Brankas Bukti. Desain thumbnail dominan: pratinjau di atas, metadata (nama, tanggal, ukuran) di bawah. Saat terkunci: pratinjau blur + ikon kunci overlay. Menampilkan badge "N catatan" jika ditautkan ke Jurnal.
+
+_Avoid_: "file card", "evidence card", "grid item"
+
+---
+
+## Laci Berkas / VaultFileDrawer
+Panel geser (slide-out sheet) dari sisi kanan yang menampilkan detail satu Berkas: pratinjau penuh, metadata, catatan terkait, dan tombol aksi (Unduh, Ganti Nama, Hapus, Tautkan Catatan). Konsisten dengan pola Lembar Catatan.
+
+_Avoid_: "file detail", "preview panel", "file sheet"

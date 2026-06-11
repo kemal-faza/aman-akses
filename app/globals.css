@@ -1,0 +1,206 @@
+@import 'tailwindcss';
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+	/* Surface */
+	--background: oklch(1 0 0); /* #ffffff */
+	--foreground: oklch(0.13 0.01 240); /* #1a1a1a */
+	--card: oklch(0.96 0.01 240); /* #f5f5f5 */
+	--card-foreground: oklch(0.13 0.01 240); /* #1a1a1a */
+	--popover: oklch(1 0 0);
+	--popover-foreground: oklch(0.13 0.01 240);
+
+	/* Primary (teal) */
+	--primary: oklch(0.65 0.09 175); /* #2a9d8f */
+	--primary-foreground: oklch(1 0 0); /* #ffffff */
+
+	/* Primary text (WCAG AA compliant on white) */
+	--primary-text: oklch(0.48 0.09 178); /* #1a7a6e */
+
+	/* Secondary & Accent */
+	--secondary: oklch(0.97 0.01 240); /* #f3f4f6 */
+	--secondary-foreground: oklch(0.23 0.02 240); /* #374151 */
+	--muted: oklch(0.72 0.01 240); /* #6b7280 */
+	--muted-foreground: oklch(0.55 0.02 240); /* #9ca3af */
+	--accent: oklch(0.97 0.01 240); /* #f9fafb */
+	--accent-foreground: oklch(0.13 0.01 240); /* #1a1a1a */
+
+	/* Semantic */
+	--destructive: oklch(0.58 0.22 25); /* #ef4444 */
+	--destructive-foreground: oklch(1 0 0); /* #ffffff */
+	--warning: oklch(0.79 0.16 85); /* #f59e0b */
+	--success: oklch(0.62 0.16 145); /* #10b981 */
+
+	/* Emergency (life-safety only) */
+	--emergency: oklch(0.52 0.22 25); /* #dc2626 */
+	--emergency-hover: oklch(0.46 0.22 25); /* #b91c1c */
+
+	/* Borders & Inputs */
+	--border: oklch(0.92 0.01 240); /* #e5e7eb */
+	--input: oklch(0.92 0.01 240); /* #e5e7eb */
+	--ring: var(--primary);
+	--radius: 0.5rem; /* 8px base */
+
+	/* Sidebar */
+	--sidebar: oklch(1 0 0); /* #ffffff */
+	--sidebar-foreground: oklch(0.23 0.02 240); /* #374151 */
+	--sidebar-primary: var(--primary);
+	--sidebar-primary-foreground: var(--primary-foreground);
+	--sidebar-accent: oklch(0.96 0.02 170); /* #e8f5f3 */
+	--sidebar-accent-foreground: var(--primary-text);
+	--sidebar-border: var(--border);
+	--sidebar-ring: var(--primary);
+	--sidebar-width: 260px;
+
+	/* Badge / Icon accent colors */
+	--badge-orange: oklch(0.72 0.17 50); /* #fb923c */
+	--badge-blue: oklch(0.55 0.19 260); /* #3b82f6 */
+	--badge-violet: oklch(0.53 0.22 290); /* #8b5cf6 */
+	--badge-pink: oklch(0.59 0.22 340); /* #ec4899 */
+	--badge-teal: oklch(0.65 0.16 175); /* #14b8a6 */
+	--badge-emerald: oklch(0.69 0.16 155); /* #34d399 */
+}
+
+@theme inline {
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--color-card: var(--card);
+	--color-card-foreground: var(--card-foreground);
+	--color-popover: var(--popover);
+	--color-popover-foreground: var(--popover-foreground);
+	--color-primary: var(--primary);
+	--color-primary-foreground: var(--primary-foreground);
+	--color-primary-text: var(--primary-text);
+	--color-secondary: var(--secondary);
+	--color-secondary-foreground: var(--secondary-foreground);
+	--color-muted: var(--muted);
+	--color-muted-foreground: var(--muted-foreground);
+	--color-accent: var(--accent);
+	--color-accent-foreground: var(--accent-foreground);
+	--color-destructive: var(--destructive);
+	--color-destructive-foreground: var(--destructive-foreground);
+	--color-warning: var(--warning);
+	--color-success: var(--success);
+	--color-emergency: var(--emergency);
+	--color-emergency-hover: var(--emergency-hover);
+	--color-border: var(--border);
+	--color-input: var(--input);
+	--color-ring: var(--ring);
+	--color-sidebar: var(--sidebar);
+	--color-sidebar-foreground: var(--sidebar-foreground);
+	--color-sidebar-primary: var(--sidebar-primary);
+	--color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+	--color-sidebar-accent: var(--sidebar-accent);
+	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+	--color-sidebar-border: var(--sidebar-border);
+	--color-sidebar-ring: var(--sidebar-ring);
+	--color-badge-orange: var(--badge-orange);
+	--color-badge-blue: var(--badge-blue);
+	--color-badge-violet: var(--badge-violet);
+	--color-badge-pink: var(--badge-pink);
+	--color-badge-teal: var(--badge-teal);
+	--color-badge-emerald: var(--badge-emerald);
+
+	/* Spacing: 4px base unit */
+	--spacing: 4px;
+
+	/* Radius scale override — explicit values from DESIGN.md */
+	--radius-xs: 4px;
+	--radius-sm: 6px;
+	--radius-md: 8px;
+	--radius-lg: 12px;
+	--radius-xl: 16px;
+	--radius-2xl: 20px;
+	--radius-pill: 9999px;
+	--radius-full: 9999px;
+
+	/* Remove default shadows (flat design) */
+	--shadow-*: initial;
+
+	/* Typography tokens */
+	--font-sans:
+		'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+		Roboto, 'Helvetica Neue', Arial, sans-serif;
+	--font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+	--text-display-xl: 48px;
+	--text-display-lg: 36px;
+	--text-display-md: 28px;
+	--text-display-sm: 24px;
+	--text-title-lg: 22px;
+	--text-title-md: 18px;
+	--text-title-sm: 16px;
+	--text-body-md: 16px;
+	--text-body-sm: 14px;
+	--text-caption: 13px;
+	--text-button: 14px;
+	--text-nav-link: 14px;
+	--text-nav-link-active: 14px;
+
+	--font-weight-thin: 100;
+	--font-weight-extralight: 200;
+	--font-weight-light: 300;
+	--font-weight-normal: 400;
+	--font-weight-medium: 500;
+	--font-weight-semibold: 600;
+	--font-weight-bold: 700;
+	--font-weight-extrabold: 800;
+	--font-weight-black: 900;
+
+	--tracking-display-xl: -1.5px;
+	--tracking-display-lg: -1px;
+	--tracking-display-md: -0.5px;
+	--tracking-display-sm: -0.3px;
+	--tracking-title-lg: -0.2px;
+
+	--leading-display-xl: 1.1;
+	--leading-display-lg: 1.15;
+	--leading-display-md: 1.2;
+	--leading-display-sm: 1.25;
+	--leading-title-lg: 1.3;
+	--leading-title-md: 1.4;
+	--leading-title-sm: 1.4;
+	--leading-body-md: 1.5;
+	--leading-body-sm: 1.5;
+	--leading-caption: 1.4;
+	--leading-button: 1.2;
+	--leading-nav-link: 1.4;
+	--leading-nav-link-active: 1.4;
+
+	/* Animation */
+	--animate-accordion-down: accordion-down 0.2s ease-out;
+	--animate-accordion-up: accordion-up 0.2s ease-out;
+}
+
+@layer base {
+	* {
+		@apply border-border outline-ring/50;
+	}
+	body {
+		@apply bg-background text-foreground;
+	}
+	button {
+		cursor: pointer;
+	}
+}
+
+@layer utilities {
+	@keyframes accordion-down {
+		from {
+			height: 0;
+		}
+		to {
+			height: var(--radix-accordion-content-height);
+		}
+	}
+	@keyframes accordion-up {
+		from {
+			height: var(--radix-accordion-content-height);
+		}
+		to {
+			height: 0;
+		}
+	}
+}

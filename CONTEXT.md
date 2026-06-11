@@ -12,9 +12,23 @@ _Avoid_: "history", "log", "feed"
 ---
 
 ## Catatan / JournalEntry
-Entri jurnal pengguna di modul Jurnal Aman. Berisi tanggal, judul, isi (terenkripsi), mood opsional, dan tags. Menjadi sumber data untuk Kronologi Builder.
+Entri jurnal pengguna di modul Jurnal Aman. Berisi tanggal, judul, isi, suasana hati (opsional), pihak terlibat, dan tags. Menjadi sumber data untuk Kronologi Builder.
 
 _Avoid_: "note" (generik), "post", "entry" (ambigu)
+
+---
+
+## Pelacak Suasana Hati / Mood Tracker
+Komponen pemilih suasana hati dengan 5 pilihan (Sangat Baik, Baik, Biasa Saja, Sedih, Sangat Sedih) menggunakan ikon Lucide. Ditempatkan di Lembar Catatan sebagai field opsional. Hanya satu yang bisa dipilih dalam satu waktu.
+
+_Avoid_: "mood selector", "emotion picker", "sentiment tracker"
+
+---
+
+## Lembar Catatan / JournalSheet
+Panel geser (slide-out sheet) dari sisi kanan yang berisi formulir untuk membuat atau mengedit Catatan. Terdiri dari field: Tanggal Kejadian, Pelacak Suasana Hati, deskripsi kejadian, pihak terlibat, dan tags. Menggunakan shadcn Sheet.
+
+_Avoid_: "journal form", "entry editor", "note dialog", "modal"
 
 ---
 

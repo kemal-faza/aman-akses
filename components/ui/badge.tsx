@@ -32,14 +32,16 @@ const badgeVariants = cva(
   }
 )
 
-interface BadgeProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof badgeVariants> {}
-
-function Badge({ className, variant, size, ...props }: BadgeProps) {
+function Badge({
+  className,
+  variant,
+  size,
+  ...props
+}: React.ComponentProps<"div"> & VariantProps<typeof badgeVariants>) {
   return (
     <div
       data-slot="badge"
+      role="status"
       className={cn(badgeVariants({ variant, size }), className)}
       {...props}
     />

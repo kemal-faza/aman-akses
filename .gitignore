@@ -39,3 +39,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# project working files (not source code)
+.superpowers/
+scratch.md
+proposal_text.txt
+*.pdf
+mockup/
+docs/
+
+# images at root
+Screenshot_*.png
+WhatsApp*.jpeg

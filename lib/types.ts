@@ -33,11 +33,18 @@ export interface TimelineResponse {
 
 export type WizardStep = "select" | "processing" | "review" | "done";
 
+/** draft -> editing -> draft|accepted|rejected -> draft (via UNDO) */
 export type TimelineItemStatus = "draft" | "editing" | "accepted" | "rejected";
+
+// Fields that users can edit on a timeline item
+export type EditableTimelineFields = Pick<
+  TimelineItem,
+  "title" | "description" | "date" | "time" | "location"
+>;
 
 export interface CardState {
   status: TimelineItemStatus;
-  editedData: Partial<TimelineItem> | null;  // null = no edits
+  editedData: Partial<EditableTimelineFields> | null;  // null = no edits
 }
 
 export interface WizardState {
@@ -46,7 +53,7 @@ export interface WizardState {
   timeline: TimelineItem[];
   summary: string;
   aiWarnings: string[];
-  cardStates: Map<string, CardState>;  // key = item.id
+  cardStates: Record<string, CardState>;  // key = item.id
   error: string | null;
 }
 

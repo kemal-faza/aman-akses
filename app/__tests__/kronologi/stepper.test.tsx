@@ -11,23 +11,23 @@ describe("Stepper", () => {
     expect(screen.getByText("Simpan")).toBeDefined()
   })
 
-  it("highlights current step with primary color", () => {
+  it("highlights current step with aria-current", () => {
     render(<Stepper currentStep="processing" onStepClick={() => {}} />)
-    const prosesStep = screen.getByText("Proses")
-    expect(prosesStep.className).toContain("text-primary")
+    const activeStep = screen.getByRole("button", { name: /Langkah 2.*aktif/ })
+    expect(activeStep).toHaveAttribute("aria-current", "step")
   })
 
   it("allows clicking past steps", () => {
     const handleClick = vi.fn()
     render(<Stepper currentStep="review" onStepClick={handleClick} />)
-    screen.getByText("Pilih").click()
+    screen.getByRole("button", { name: /Langkah 1.*selesai/ }).click()
     expect(handleClick).toHaveBeenCalledWith("select")
   })
 
   it("disables clicking future steps", () => {
     const handleClick = vi.fn()
     render(<Stepper currentStep="processing" onStepClick={handleClick} />)
-    screen.getByText("Review").click()
-    expect(handleClick).not.toHaveBeenCalled()
+    const reviewBtn = screen.getByRole("button", { name: /Langkah 3/ })
+    expect(reviewBtn).toBeDisabled()
   })
 })

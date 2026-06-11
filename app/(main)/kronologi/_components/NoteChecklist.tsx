@@ -50,6 +50,7 @@ export function NoteChecklist({ notes, selectedIds, onToggle }: NoteChecklistPro
                 checked={isSelected}
                 onCheckedChange={() => onToggle(note.id)}
                 aria-label={`Pilih catatan: ${note.title}`}
+                onClick={(e) => e.stopPropagation()}
               />
               <div className="flex-1 min-w-0">
                 <h3 className="text-base font-semibold truncate">{note.title}</h3>

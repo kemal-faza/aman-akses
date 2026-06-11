@@ -98,3 +98,15 @@ export interface FeatureCardData {
   badgeColor: "orange" | "blue" | "violet" | "pink" | "teal" | "emerald";
   isPlaceholder: boolean;
 }
+
+// === Mood ===
+
+export type Mood = "sangat-baik" | "baik" | "biasa" | "sedih" | "sangat-sedih";
+
+export const MOOD_OPTIONS: { value: Mood; label: string }[] = [
+  { value: "sangat-baik", label: "Sangat Baik" },
+  { value: "baik", label: "Baik" },
+  { value: "biasa", label: "Biasa Saja" },
+  { value: "sedih", label: "Sedih" },
+  { value: "sangat-sedih", label: "Sangat Sedih" },
+];

@@ -17,6 +17,7 @@ export function StepProses() {
     if (calledRef.current) return
     calledRef.current = true
 
+    const abortController = new AbortController()
     const timeoutId = setTimeout(() => {
       setIsTimeout(true)
     }, 10000)
@@ -35,6 +36,7 @@ export function StepProses() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),
+      signal: abortController.signal,
     })
       .then(async (res) => {
         clearTimeout(timeoutId)
@@ -48,12 +50,21 @@ export function StepProses() {
         dispatch({ type: "PROCESSING_SUCCESS", response: data })
       })
       .catch((err) => {
+        if (err instanceof DOMException && err.name === "AbortError") return
+        clearTimeout(timeoutId)
         dispatch({
           type: "PROCESSING_ERROR",
           error: err instanceof Error ? err.message : "Terjadi kesalahan",
         })
       })
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+    return () => {
+      clearTimeout(timeoutId)
+      abortController.abort()
+    }
+    // Only fetch once on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleRetry = () => {
     dispatch({ type: "GO_BACK", targetStep: "select" })
@@ -93,10 +104,14 @@ export function StepProses() {
   }
 
   return (
-    <div className="space-y-8 max-w-lg mx-auto">
+    <div className="space-y-8 max-w-lg mx-auto" aria-busy="true">
       <div className="text-center space-y-2">
         <div className="flex justify-center">
-          <div className="size-12 rounded-full border-4 border-primary border-t-transparent animate-spin" />
+          <div
+            className="size-12 rounded-full border-4 border-primary border-t-transparent animate-spin"
+            role="status"
+            aria-label="Memproses kronologi"
+          />
         </div>
         <h2 className="text-title-md font-semibold">Menyusun Kronologi</h2>
         <p className="text-sm text-muted-foreground">

@@ -70,13 +70,13 @@ export function TimelineCard({
   }
 
   const handleSave = () => {
-    // Only send changed fields
+    // Compare against displayData (merged view) to detect changes from current state
     const changes: Partial<EditableTimelineFields> = {}
-    if (editForm.title !== item.title) changes.title = editForm.title
-    if (editForm.date !== item.date) changes.date = editForm.date
-    if (editForm.time !== item.time) changes.time = editForm.time ?? null
-    if (editForm.location !== item.location) changes.location = editForm.location ?? null
-    if (editForm.description !== item.description) changes.description = editForm.description
+    if (editForm.title !== displayData.title) changes.title = editForm.title
+    if (editForm.date !== displayData.date) changes.date = editForm.date
+    if (editForm.time !== displayData.time) changes.time = editForm.time ?? null
+    if (editForm.location !== displayData.location) changes.location = editForm.location ?? null
+    if (editForm.description !== displayData.description) changes.description = editForm.description
     onSaveEdit(item.id, changes)
   }
 

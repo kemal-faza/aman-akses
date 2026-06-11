@@ -64,7 +64,7 @@ export type WizardAction =
   | { type: "PROCESSING_ERROR"; error: string }
   | { type: "START_EDIT"; itemId: string }
   | { type: "CANCEL_EDIT"; itemId: string }
-  | { type: "SAVE_EDIT"; itemId: string; data: Partial<TimelineItem> }
+  | { type: "SAVE_EDIT"; itemId: string; data: Partial<EditableTimelineFields> }
   | { type: "ACCEPT_ITEM"; itemId: string }
   | { type: "REJECT_ITEM"; itemId: string }
   | { type: "UNDO_ITEM"; itemId: string }

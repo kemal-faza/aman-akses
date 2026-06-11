@@ -2,6 +2,7 @@
 
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AccessibilityProvider } from "@/lib/accessibility-context";
+import { JournalProvider } from "@/lib/journal-context";
 import { AppSidebar } from "@/components/app-sidebar";
 import { AppTopbar } from "@/components/app-topbar";
 
@@ -12,22 +13,24 @@ export default function MainLayout({
 }) {
   return (
     <AccessibilityProvider>
-      <SidebarProvider
-      style={
-        {
-          "--sidebar-width": "260px",
-          "--sidebar-width-icon": "3rem",
-        } as React.CSSProperties
-      }
-    >
-      <AppSidebar />
-      <main className="flex flex-1 flex-col">
-        <AppTopbar />
-        <div className="flex-1 p-8 max-w-[1200px] w-full mx-auto">
-          {children}
-        </div>
-      </main>
-    </SidebarProvider>
+      <JournalProvider>
+        <SidebarProvider
+        style={
+          {
+            "--sidebar-width": "260px",
+            "--sidebar-width-icon": "3rem",
+          } as React.CSSProperties
+        }
+      >
+        <AppSidebar />
+        <main className="flex flex-1 flex-col">
+          <AppTopbar />
+          <div className="flex-1 p-8 max-w-[1200px] w-full mx-auto">
+            {children}
+          </div>
+        </main>
+      </SidebarProvider>
+      </JournalProvider>
     </AccessibilityProvider>
   );
 }

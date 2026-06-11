@@ -71,15 +71,21 @@ export type WizardAction =
   | { type: "SAVE_DONE" }
   | { type: "GO_BACK"; targetStep: WizardStep };
 
-// === Journal Note (for display) ===
+// === Journal Note ===
 
 export interface JournalNote {
   id: string;
-  date: string;
-  title: string;
-  content: string;
-  tags: string[];
+  date: string;            // ISO-8601 "2026-06-12"
+  title: string;           // maks 100 karakter
+  content: string;         // deskripsi kejadian
+  mood: Mood | null;       // null = tidak dipilih
+  involvedParties: string; // "Siapa yang terlibat?"
+  tags: string[];          // array tag unik, lowercase
+  createdAt: string;       // ISO timestamp
+  updatedAt: string;       // ISO timestamp
 }
+
+export type JournalEntryInput = Omit<JournalNote, "id" | "createdAt" | "updatedAt">;
 
 // === Dashboard ===
 

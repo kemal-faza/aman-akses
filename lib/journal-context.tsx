@@ -11,7 +11,7 @@ import {
 } from "react";
 import type { JournalNote, JournalEntryInput } from "./types";
 import type { JournalRepository } from "./repository";
-import { createLocalStorageRepo } from "./repository-localstorage";
+import { createLocalStorageRepo, seedJournalData } from "./repository-localstorage";
 
 interface JournalState {
   entries: JournalNote[];
@@ -93,6 +93,10 @@ export function JournalProvider({
       dispatch({ type: "LOAD_ERROR", error: err instanceof Error ? err.message : "Gagal memuat" });
     }
   }, [repo]);
+
+  useEffect(() => {
+    seedJournalData();
+  }, []);
 
   useEffect(() => {
     refreshEntries();

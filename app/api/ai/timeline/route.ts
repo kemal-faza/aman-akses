@@ -21,7 +21,8 @@ export async function POST(request: NextRequest) {
     const response = generateMockTimelineResponse(body)
 
     return NextResponse.json(response, { status: 200 })
-  } catch {
+  } catch (error) {
+    console.error("POST /api/ai/timeline error:", error)
     return NextResponse.json(
       { error: "Gagal memproses permintaan" },
       { status: 500 },

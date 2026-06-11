@@ -47,7 +47,6 @@ export function generateMockTimelineResponse(
   request: TimelineRequest,
 ): TimelineResponse {
   const selectedIds = new Set(request.notes.map((n) => n.id))
-  const selectedNotes = mockJournalNotes.filter((n) => selectedIds.has(n.id))
 
   const timeline = [
     {

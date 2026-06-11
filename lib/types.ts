@@ -80,3 +80,21 @@ export interface JournalNote {
   content: string;
   tags: string[];
 }
+
+// === Dashboard ===
+
+export interface DashboardStats {
+  journalCount: number;
+  kronologiCount: number;
+  activeFeatures: number;
+  totalFeatures: number;
+}
+
+export interface FeatureCardData {
+  icon: string;              // Lucide icon name
+  title: string;
+  description: string;
+  href: string;
+  badgeColor: "orange" | "blue" | "violet" | "pink" | "teal" | "emerald";
+  isPlaceholder: boolean;
+}

@@ -5,18 +5,29 @@ import { useJournal } from "@/lib/journal-context";
 import { JournalList } from "../_components/journal/JournalList";
 import { JournalSheet } from "../_components/journal/JournalSheet";
 import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Plus } from "lucide-react";
 import { seedJournalData } from "@/lib/repository-localstorage";
 import type { JournalEntryInput, JournalNote } from "@/lib/types";
 
 export default function JurnalAmanPage() {
-  const { entries, loading, error, createEntry, updateEntry, deleteEntry } = useJournal();
+  const { entries, loading, error, createEntry, updateEntry, deleteEntry, refreshEntries } = useJournal();
 
   useEffect(() => {
     seedJournalData();
   }, []);
 
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
   const [sheetMode, setSheetMode] = useState<"create" | "edit">("create");
   const [editingEntry, setEditingEntry] = useState<JournalNote | undefined>(undefined);
 
@@ -44,8 +55,17 @@ export default function JurnalAmanPage() {
   };
 
   const handleDelete = (id: string) => {
-    if (confirm("Hapus catatan ini? Tindakan ini tidak bisa dibatalkan.")) {
-      deleteEntry(id);
+    setDeleteTarget(id);
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteTarget) return;
+    try {
+      await deleteEntry(deleteTarget);
+    } catch {
+      // Error silently handled -- data remains in context
+    } finally {
+      setDeleteTarget(null);
     }
   };
 
@@ -75,6 +95,7 @@ export default function JurnalAmanPage() {
         onDelete={handleDelete}
         onNewEntry={handleNewEntry}
         onEditEntry={handleEditEntry}
+        onRetry={refreshEntries}
       />
 
       {/* Sheet */}
@@ -86,6 +107,29 @@ export default function JurnalAmanPage() {
         entry={editingEntry}
         onSave={handleSave}
       />
+
+      {/* Delete confirmation dialog */}
+      <AlertDialog
+        open={deleteTarget !== null}
+        onOpenChange={(open) => {
+          if (!open) setDeleteTarget(null);
+        }}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Hapus catatan</AlertDialogTitle>
+            <AlertDialogDescription>
+              Hapus catatan ini? Tindakan ini tidak bisa dibatalkan.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Batal</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDelete} className="bg-destructive hover:bg-destructive/90">
+              Hapus
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

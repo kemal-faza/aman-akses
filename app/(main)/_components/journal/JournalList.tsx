@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -29,6 +30,7 @@ interface JournalListProps {
   onDelete: (id: string) => void;
   onNewEntry: () => void;
   onEditEntry: (id: string) => void;
+  onRetry?: () => void;
 }
 
 function JournalCard({
@@ -95,6 +97,7 @@ export function JournalList({
   onDelete,
   onNewEntry,
   onEditEntry,
+  onRetry,
 }: JournalListProps) {
   // Loading state
   if (loading) {
@@ -118,6 +121,11 @@ export function JournalList({
       <div className="text-center py-16 space-y-4">
         <p className="text-destructive">Gagal memuat catatan</p>
         <p className="text-sm text-muted-foreground">{error}</p>
+        {onRetry && (
+          <Button variant="outline" onClick={onRetry} className="mt-2">
+            Coba Lagi
+          </Button>
+        )}
       </div>
     );
   }
@@ -144,19 +152,21 @@ export function JournalList({
   }
 
   // Populated state
+  const sortedEntries = useMemo(
+    () => [...entries].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
+    [entries],
+  );
+
   return (
     <div className="space-y-3">
-      {entries
-        .slice()
-        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-        .map((entry) => (
-          <JournalCard
-            key={entry.id}
-            entry={entry}
-            onEdit={() => onEditEntry(entry.id)}
-            onDelete={() => onDelete(entry.id)}
-          />
-        ))}
+      {sortedEntries.map((entry) => (
+        <JournalCard
+          key={entry.id}
+          entry={entry}
+          onEdit={() => onEditEntry(entry.id)}
+          onDelete={() => onDelete(entry.id)}
+        />
+      ))}
     </div>
   );
 }

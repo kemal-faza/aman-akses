@@ -18,8 +18,32 @@ interface MoodTrackerProps {
 }
 
 export function MoodTracker({ value, onChange }: MoodTrackerProps) {
+  function handleKeyDown(e: React.KeyboardEvent) {
+    if (!value) return;
+    const currentIndex = MOOD_OPTIONS.findIndex((opt) => opt.value === value);
+    if (currentIndex === -1) return;
+
+    let nextIndex = currentIndex;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      nextIndex = (currentIndex + 1) % MOOD_OPTIONS.length;
+      e.preventDefault();
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      nextIndex = (currentIndex - 1 + MOOD_OPTIONS.length) % MOOD_OPTIONS.length;
+      e.preventDefault();
+    }
+
+    if (nextIndex !== currentIndex) {
+      onChange(MOOD_OPTIONS[nextIndex].value);
+    }
+  }
+
   return (
-    <div className="flex items-center gap-3" role="radiogroup" aria-label="Suasana Hati">
+    <div
+      className="flex items-center gap-3"
+      role="radiogroup"
+      aria-label="Suasana Hati"
+      onKeyDown={handleKeyDown}
+    >
       {MOOD_OPTIONS.map((opt) => {
         const Icon = ICON_MAP[opt.value];
         const isActive = value === opt.value;

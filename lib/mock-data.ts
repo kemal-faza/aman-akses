@@ -1,5 +1,12 @@
 import type { JournalNote, TimelineRequest, TimelineResponse } from "./types"
 
+const baseNote = {
+  mood: null as JournalNote["mood"],
+  involvedParties: "",
+  createdAt: "2024-01-01T00:00:00.000Z",
+  updatedAt: "2024-01-01T00:00:00.000Z",
+};
+
 export const mockJournalNotes: JournalNote[] = [
   {
     id: "note-1",
@@ -8,6 +15,7 @@ export const mockJournalNotes: JournalNote[] = [
     content:
       "Hari ini saya berada di ruang kelas A untuk pelajaran matematika. Seorang teman sekelas mendekati saya dan membuat komentar yang membuat saya tidak nyaman. Dia terus menerus berkomentar tentang penampilan saya meskipun saya sudah memintanya untuk berhenti.",
     tags: ["pelecehan verbal", "sekolah"],
+    ...baseNote,
   },
   {
     id: "note-2",
@@ -16,6 +24,7 @@ export const mockJournalNotes: JournalNote[] = [
     content:
       "Seseorang dari kelas mengirimkan pesan WhatsApp yang berisi konten tidak pantas. Saya merasa takut dan tidak tahu harus melapor ke siapa. Saya screenshot pesannya sebagai bukti.",
     tags: ["pelecehan online", "whatsapp"],
+    ...baseNote,
   },
   {
     id: "note-3",
@@ -24,6 +33,7 @@ export const mockJournalNotes: JournalNote[] = [
     content:
       "Saya akhirnya memberanikan diri untuk bertemu dengan guru BK. Saya menceritakan apa yang terjadi di kelas dan pesan WhatsApp. Beliau mendengarkan dengan baik dan memberikan dukungan.",
     tags: ["dukungan", "guru BK"],
+    ...baseNote,
   },
   {
     id: "note-4",
@@ -32,6 +42,7 @@ export const mockJournalNotes: JournalNote[] = [
     content:
       "Pelaku mendekati saya lagi di kantin saat istirahat. Kali ini dia mencoba menyentuh lengan saya. Saya langsung menjauh dan ditemani oleh teman saya.",
     tags: ["pelecehan fisik", "kantin"],
+    ...baseNote,
   },
   {
     id: "note-5",
@@ -40,6 +51,7 @@ export const mockJournalNotes: JournalNote[] = [
     content:
       "Saya menceritakan semuanya ke orang tua saya. Mereka sangat mendukung dan akan membantu saya menghadapi situasi ini. Kami memutuskan untuk melapor ke pihak sekolah.",
     tags: ["dukungan", "keluarga"],
+    ...baseNote,
   },
 ]
 

@@ -6,6 +6,7 @@ import {
   useReducer,
   useEffect,
   useCallback,
+  useMemo,
   type ReactNode,
 } from "react";
 import type { JournalNote, JournalEntryInput } from "./types";
@@ -80,7 +81,7 @@ export function JournalProvider({
   children: ReactNode;
   repository?: JournalRepository;
 }) {
-  const repo = repository ?? createLocalStorageRepo();
+  const repo = useMemo(() => repository ?? createLocalStorageRepo(), [repository]);
   const [state, dispatch] = useReducer(journalReducer, initialState);
 
   const refreshEntries = useCallback(async () => {

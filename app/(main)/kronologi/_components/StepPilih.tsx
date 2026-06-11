@@ -4,10 +4,11 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { NoteChecklist } from "./NoteChecklist"
 import { useWizard } from "@/lib/wizard-context"
-import { mockJournalNotes } from "@/lib/mock-data"
+import { useJournal } from "@/lib/journal-context"
 
 export function StepPilih() {
   const { state, dispatch } = useWizard()
+  const { entries, loading } = useJournal()
   const selectedCount = state.selectedNoteIds.length
 
   const handleToggle = (noteId: string) => {
@@ -19,6 +20,14 @@ export function StepPilih() {
 
   const handleLanjutkan = () => {
     dispatch({ type: "START_PROCESSING" })
+  }
+
+  if (loading) {
+    return (
+      <div className="space-y-4">
+        <p className="text-muted-foreground">Memuat catatan jurnal...</p>
+      </div>
+    )
   }
 
   return (
@@ -35,11 +44,18 @@ export function StepPilih() {
         </Badge>
       </div>
 
-      <NoteChecklist
-        notes={mockJournalNotes}
-        selectedIds={state.selectedNoteIds}
-        onToggle={handleToggle}
-      />
+      {entries.length === 0 ? (
+        <div className="text-center py-12 text-muted-foreground">
+          <p>Belum ada catatan di Jurnal Aman.</p>
+          <p className="text-sm mt-1">Silakan buat catatan terlebih dahulu sebelum menyusun kronologi.</p>
+        </div>
+      ) : (
+        <NoteChecklist
+          notes={entries}
+          selectedIds={state.selectedNoteIds}
+          onToggle={handleToggle}
+        />
+      )}
 
       <div className="flex justify-end pt-4">
         <Button

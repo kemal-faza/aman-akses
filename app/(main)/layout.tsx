@@ -1,6 +1,7 @@
 "use client";
 
 import { SidebarProvider } from "@/components/ui/sidebar";
+import { AccessibilityProvider } from "@/lib/accessibility-context";
 import { AppSidebar } from "@/components/app-sidebar";
 import { AppTopbar } from "@/components/app-topbar";
 
@@ -10,7 +11,8 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <SidebarProvider
+    <AccessibilityProvider>
+      <SidebarProvider
       style={
         {
           "--sidebar-width": "260px",
@@ -26,5 +28,6 @@ export default function MainLayout({
         </div>
       </main>
     </SidebarProvider>
+    </AccessibilityProvider>
   );
 }

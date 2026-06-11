@@ -40,7 +40,7 @@ export function StepReview() {
           <AlertDescription>
             <ul className="list-disc pl-4 space-y-1">
               {state.aiWarnings.map((warning, i) => (
-                <li key={i}>{warning}</li>
+                <li key={`warn-${i}`}>{warning}</li>
               ))}
             </ul>
           </AlertDescription>

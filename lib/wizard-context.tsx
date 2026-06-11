@@ -8,7 +8,7 @@ import {
   type Dispatch,
   type ReactNode,
 } from "react"
-import type { WizardState, WizardAction, CardState } from "./types"
+import type { WizardState, WizardAction, CardState, EditableTimelineFields } from "./types"
 
 function createInitialState(): WizardState {
   return {
@@ -81,6 +81,17 @@ function wizardReducer(state: WizardState, action: WizardAction): WizardState {
     case "SAVE_EDIT": {
       const card = state.cardStates[action.itemId]
       if (!card) return state
+      const originalItem = state.timeline.find((t) => t.id === action.itemId)
+      const merged = { ...card.editedData, ...action.data } as Partial<EditableTimelineFields>
+      // Remove fields that match the original item (user reverted to original)
+      const cleaned = { ...merged }
+      if (originalItem) {
+        for (const key of Object.keys(cleaned) as Array<keyof EditableTimelineFields>) {
+          if (cleaned[key] === originalItem[key]) delete cleaned[key]
+        }
+      }
+      const finalData =
+        Object.keys(cleaned).length > 0 ? cleaned : null
       return {
         ...state,
         cardStates: {
@@ -88,7 +99,7 @@ function wizardReducer(state: WizardState, action: WizardAction): WizardState {
           [action.itemId]: {
             ...card,
             status: "draft",
-            editedData: { ...card.editedData, ...action.data },
+            editedData: finalData,
           },
         },
       }

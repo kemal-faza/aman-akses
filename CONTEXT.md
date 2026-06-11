@@ -64,3 +64,45 @@ _Avoid_: "sensitive UX", "safe design"
 Prinsip bahwa AI hanya membantu (menyusun, merapikan, menyederhanakan) tapi keputusan akhir selalu di tangan manusia. Output AI tidak boleh auto-submit, harus ditinjau pengguna dulu.
 
 _Avoid_: "AI oversight", "manual review"
+
+---
+
+## Dashboard Utama
+Landing page dan pusat kendali platform. Titik awal demo yang menyediakan akses cepat ke seluruh fitur melalui Feature Cards, ringkasan data pengguna, widget aksesibilitas, dan akses darurat.
+
+_Avoid_: "home", "main page", "landing page"
+
+---
+
+## Feature Card / Kartu Fitur
+Kartu navigasi dengan ikon berwarna, judul, deskripsi singkat, dan link "Pelajari lebih lanjut". Digunakan di Dashboard untuk mengarahkan pengguna ke 6 fitur utama AmanAkses. Grid responsif: 3-up desktop, 2-up tablet, 1-up mobile.
+
+_Avoid_: "menu card", "nav card", "feature tile"
+
+---
+
+## Widget Aksesibilitas
+Tombol toggle sekali klik untuk mengaktifkan/menonaktifkan fitur aksesibilitas: Screen Reader, Catatan Suara, Bahasa Isyarat, dan Kontras Tinggi. State dikelola secara global agar efeknya terasa di seluruh halaman.
+
+_Avoid_: "accessibility toggle", "a11y button", "settings widget"
+
+---
+
+## Kartu Darurat
+Kartu dengan border merah 2px yang berisi tombol "Telepon Darurat 112" (`tel:112`) dan link ke layanan darurat lainnya. Ditempatkan di bagian bawah Dashboard sebagai akses cepat dalam situasi krisis. Mengikuti prinsip Trauma-Informed Design: selalu terlihat, selalu bisa dijangkau.
+
+_Avoid_: "emergency button", "panic card", "SOS card"
+
+---
+
+## Segera Hadir
+Label yang ditampilkan di halaman-halaman Fase 2 (placeholder) untuk menginformasikan bahwa fitur belum tersedia. Semua Feature Card tetap bisa diklik — status placeholder hanya ditunjukkan di halaman tujuan, bukan di Dashboard.
+
+_Avoid_: "coming soon", "under construction", "WIP"
+
+---
+
+## Ringkasan Data
+Tiga kartu statistik di Dashboard yang menampilkan jumlah Catatan Jurnal, Kronologi Tersimpan, dan Fitur Aktif.
+
+_Avoid_: "stats", "dashboard metrics", "counters"

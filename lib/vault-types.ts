@@ -45,6 +45,7 @@ export interface AddFileInput {
 
 export interface VaultState {
   isUnlocked: boolean;
+  encryptionKey: CryptoKey | null;
   autoLockTimeoutMs: number;
   lastActivity: number;
   files: EvidenceFile[];
@@ -65,6 +66,7 @@ export interface VaultState {
 
 export const DEFAULT_VAULT_STATE: VaultState = {
   isUnlocked: false,
+  encryptionKey: null,
   autoLockTimeoutMs: 300000,
   lastActivity: Date.now(),
   files: [],

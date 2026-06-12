@@ -176,3 +176,52 @@ _Avoid_: "file card", "evidence card", "grid item"
 Panel geser (slide-out sheet) dari sisi kanan yang menampilkan detail satu Berkas: pratinjau penuh, metadata, catatan terkait, dan tombol aksi (Unduh, Ganti Nama, Hapus, Tautkan Catatan). Konsisten dengan pola Lembar Catatan.
 
 _Avoid_: "file detail", "preview panel", "file sheet"
+
+---
+
+## Pendamping Tepercaya / Trusted Companion
+Modul pengelolaan kontak pendukung — mencakup Pendamping Personal (orang terdekat pengguna) dan Penyedia Layanan Dukungan (lembaga formal yang dikurasi). Pengguna menyimpan kontak, mengontrol Izin Akses per modul, dan menghubungi pendamping via deep link WhatsApp/Telepon.
+
+_Avoid_: "trusted contacts", "support network", "companion module"
+
+---
+
+## Pendamping Personal / Personal Companion
+Kontak individu yang ditambahkan pengguna secara manual — misalnya Sahabat, Kakak, Orang Tua, atau Pasangan. Dikelola penuh oleh pengguna: tambah, edit, hapus, dan atur Izin Akses. Disimpan di localStorage.
+
+_Avoid_: "personal contact", "friend", "family contact"
+
+---
+
+## Penyedia Layanan Dukungan / Service Provider
+Lembaga atau layanan formal yang sudah dikurasi oleh tim AmanAkses dan ditampilkan sebagai katalog statis. Contoh: Satgas PPKS, LBH, Komnas Perempuan, SAPA 129. Pengguna tidak bisa menambah atau mengubah — hanya melihat dan menghubungi. Memiliki kategori: Hotline, Satgas PPKS, Bantuan Hukum, Psikolog, Layanan Sosial.
+
+_Avoid_: "service", "institution", "organization", "provider"
+
+---
+
+## Izin Akses / Module Access
+Kontrol yang diberikan pengguna kepada Pendamping Personal untuk mengakses modul AmanAkses tertentu. Berbentuk checkbox per modul: Jurnal Aman, Kronologi Kejadian, Brankas Bukti. Di Fase 2, izin bersifat metadata (belum ada enforcement). Dikelola melalui Lembar Pendamping.
+
+_Avoid_: "permission", "access right", "sharing setting"
+
+---
+
+## Katalog Penyedia Layanan / Service Provider Catalog
+Daftar statis Penyedia Layanan Dukungan dalam file `lib/companion-catalog.ts`. Dikurasi oleh tim AmanAkses, berisi nama, kategori, kontak, alamat, jam operasional, dan status ketersediaan. Ditampilkan sebagai list baris dengan filter chip per kategori.
+
+_Avoid_: "provider list", "directory", "service directory"
+
+---
+
+## Kartu Pendamping / CompanionCard
+Kartu individual dalam grid Pendamping Personal. Berisi avatar inisial 48x48px, nama, role, chip Izin Akses, dan tombol "Hubungi Sekarang". Menggunakan komponen `companion-card` dari DESIGN.md. Grid responsif: 3-up desktop, 2-up tablet, 1-up mobile.
+
+_Avoid_: "contact card", "person card", "friend card"
+
+---
+
+## Lembar Pendamping / CompanionSheet
+Panel geser (slide-out sheet) dari sisi kanan yang berisi formulir untuk menambah atau mengedit Pendamping Personal. Field: Nama, Role (dropdown + custom), Nomor WA/Telepon, Catatan, dan checkbox Izin Akses. Konsisten dengan pola Lembar Catatan dan Laci Berkas.
+
+_Avoid_: "companion form", "contact editor", "add dialog"

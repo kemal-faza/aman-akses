@@ -141,12 +141,20 @@ export function VaultProvider({ children }: { children: ReactNode }) {
     if (!storedHash) return false;
     const ok = await verifyPin(pin, storedHash);
     if (ok) {
+      // Derive encryption key from the user's actual PIN + stored salt
+      const saltB64 = repo.getSalt();
+      if (saltB64) {
+        const salt = Uint8Array.from(atob(saltB64), (c) => c.charCodeAt(0));
+        const key = await deriveKey(pin, salt);
+        dispatch({ type: "SET_ENCRYPTION_KEY", key });
+      }
       dispatch({ type: "SET_UNLOCKED", unlocked: true });
     }
     return ok;
   }, []);
 
   const lock = useCallback(() => {
+    dispatch({ type: "SET_ENCRYPTION_KEY", key: null });
     dispatch({ type: "SET_UNLOCKED", unlocked: false });
   }, []);
 

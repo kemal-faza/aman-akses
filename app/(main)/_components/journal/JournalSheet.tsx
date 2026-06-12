@@ -8,7 +8,8 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { MoodTracker } from "./MoodTracker";
 import type { Mood, JournalNote, JournalEntryInput } from "@/lib/types";
-import { X } from "lucide-react";
+import { useVault } from "@/lib/vault-context";
+import { Paperclip, Plus, X } from "lucide-react";
 
 interface JournalSheetProps {
   open: boolean;
@@ -188,6 +189,9 @@ export function JournalSheet({ open, onOpenChange, mode, entry, onSave }: Journa
             )}
           </div>
 
+          {/* Vault File Attachments */}
+          {entry && <FileAttachmentsSection noteId={entry.id} />}
+
           {/* Form error */}
           {errors.form && (
             <p className="text-sm text-destructive bg-destructive/10 rounded-md p-3">{errors.form}</p>
@@ -202,5 +206,48 @@ export function JournalSheet({ open, onOpenChange, mode, entry, onSave }: Journa
         </form>
       </SheetContent>
     </Sheet>
+  );
+}
+
+function FileAttachmentsSection({ noteId }: { noteId: string }) {
+  let vault: ReturnType<typeof useVault> | null = null;
+  try {
+    vault = useVault();
+  } catch {
+    return null;
+  }
+
+  const linkedFiles = vault.getFilesByNoteId(noteId);
+
+  return (
+    <div className="space-y-2">
+      <label className="text-sm font-medium">Berkas Terlampir</label>
+      {linkedFiles.length > 0 ? (
+        <div className="space-y-1">
+          {linkedFiles.map((file) => (
+            <div
+              key={file.id}
+              className="flex items-center gap-2 text-sm text-muted-foreground p-2 border border-border rounded-md"
+            >
+              <Paperclip className="w-4 h-4 flex-shrink-0" />
+              <span className="truncate">{file.name}</span>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-sm text-muted-foreground/60">Belum ada berkas terlampir.</p>
+      )}
+      <button
+        type="button"
+        className="text-sm text-primary hover:underline flex items-center gap-1"
+        onClick={() => {
+          // Open vault upload dialog pre-linked to this note
+          // TODO: wire with vault context
+        }}
+      >
+        <Plus className="w-3 h-3" />
+        Tambah Berkas
+      </button>
+    </div>
   );
 }

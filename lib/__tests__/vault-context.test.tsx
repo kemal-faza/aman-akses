@@ -131,6 +131,67 @@ describe("VaultContext", () => {
     expect(result.current.state.activeCategory).toBe("audio");
   });
 
+  it("getFilesByNoteId returns files linked to a note", async () => {
+    const { result } = renderHook(() => useVault(), { wrapper });
+    await waitFor(() => expect(result.current.state.loading).toBe(false));
+
+    await act(async () => {
+      await result.current.setupPin("123456");
+      await result.current.unlock("123456");
+    });
+
+    await act(async () => {
+      await result.current.addFile({
+        name: "photo.jpg", mimeType: "image/jpeg", category: "photo", sizeBytes: 100,
+        source: { type: "upload", method: "drag-drop" }, linkedNoteIds: ["note-1"], tags: [],
+        file: new File(["a"], "photo.jpg", { type: "image/jpeg" }),
+      });
+      await result.current.addFile({
+        name: "audio.mp3", mimeType: "audio/mpeg", category: "audio", sizeBytes: 200,
+        source: { type: "upload", method: "file-picker" }, linkedNoteIds: ["note-1", "note-2"], tags: [],
+        file: new File(["b"], "audio.mp3", { type: "audio/mpeg" }),
+      });
+      await result.current.addFile({
+        name: "doc.pdf", mimeType: "application/pdf", category: "document", sizeBytes: 300,
+        source: { type: "upload", method: "drag-drop" }, linkedNoteIds: [], tags: [],
+        file: new File(["c"], "doc.pdf", { type: "application/pdf" }),
+      });
+    });
+
+    const forNote1 = result.current.getFilesByNoteId("note-1");
+    expect(forNote1).toHaveLength(2);
+
+    const forNote2 = result.current.getFilesByNoteId("note-2");
+    expect(forNote2).toHaveLength(1);
+
+    const forNone = result.current.getFilesByNoteId("nonexistent");
+    expect(forNone).toHaveLength(0);
+  });
+
+  it("getNotesByFileId returns linked note IDs for a file", async () => {
+    const { result } = renderHook(() => useVault(), { wrapper });
+    await waitFor(() => expect(result.current.state.loading).toBe(false));
+
+    await act(async () => {
+      await result.current.setupPin("123456");
+      await result.current.unlock("123456");
+    });
+
+    const file = await act(async () => {
+      return await result.current.addFile({
+        name: "test.jpg", mimeType: "image/jpeg", category: "photo", sizeBytes: 100,
+        source: { type: "upload", method: "drag-drop" }, linkedNoteIds: ["note-a", "note-b"], tags: [],
+        file: new File(["d"], "test.jpg", { type: "image/jpeg" }),
+      });
+    });
+
+    const noteIds = result.current.getNotesByFileId(file.id);
+    expect(noteIds).toEqual(["note-a", "note-b"]);
+
+    const noNotes = result.current.getNotesByFileId("nonexistent-file");
+    expect(noNotes).toEqual([]);
+  });
+
   it("links and unlinks journal notes", async () => {
     const { result } = renderHook(() => useVault(), { wrapper });
     await waitFor(() => expect(result.current.state.loading).toBe(false));

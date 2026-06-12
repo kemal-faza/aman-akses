@@ -91,6 +91,8 @@ interface VaultContextValue {
   setFilters: (filters: Partial<VaultState["activeFilters"]>) => void;
   linkNote: (fileId: string, noteId: string) => Promise<void>;
   unlinkNote: (fileId: string, noteId: string) => Promise<void>;
+  getFilesByNoteId: (noteId: string) => EvidenceFile[];
+  getNotesByFileId: (fileId: string) => string[];
 }
 
 const VaultContext = createContext<VaultContextValue | null>(null);
@@ -161,6 +163,16 @@ export function VaultProvider({ children }: { children: ReactNode }) {
     dispatch({ type: "SET_AUTO_LOCK", timeoutMs });
     dispatch({ type: "RESET_ACTIVITY" });
   }, []);
+
+  const getFilesByNoteId = useCallback(
+    (noteId: string) => state.files.filter((f) => f.linkedNoteIds.includes(noteId)),
+    [state.files]
+  );
+
+  const getNotesByFileId = useCallback(
+    (fileId: string) => state.files.find((f) => f.id === fileId)?.linkedNoteIds ?? [],
+    [state.files]
+  );
 
   const getFileById = useCallback(
     (id: string) => state.files.find((f) => f.id === id),
@@ -270,6 +282,8 @@ export function VaultProvider({ children }: { children: ReactNode }) {
         setFilters,
         linkNote,
         unlinkNote,
+        getFilesByNoteId,
+        getNotesByFileId,
       }}
     >
       {children}

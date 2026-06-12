@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { EmergencyCard } from "@/app/(main)/_components/dashboard/EmergencyCard";
 
 describe("EmergencyCard", () => {
@@ -19,9 +20,25 @@ describe("EmergencyCard", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders tel:112 button", () => {
-    const btn = screen.getByRole("link", { name: "Telepon Darurat 112" });
-    expect(btn).toHaveAttribute("href", "tel:112");
+  it("renders call button", () => {
+    const btn = screen.getByRole("button", { name: "Telepon Darurat 112" });
+    expect(btn).toBeInTheDocument();
+  });
+
+  it("shows confirmation dialog when call button is clicked", async () => {
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("button", { name: "Telepon Darurat 112" }));
+    expect(screen.getByText("Hubungi darurat?")).toBeInTheDocument();
+    expect(
+      screen.getByText(/Anda akan menghubungi layanan darurat/),
+    ).toBeInTheDocument();
+  });
+
+  it("confirmation dialog has Batal and confirm buttons", async () => {
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("button", { name: "Telepon Darurat 112" }));
+    expect(screen.getByRole("button", { name: "Batal" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Ya, Hubungi 112" })).toBeInTheDocument();
   });
 
   it("renders link to other emergency services", () => {

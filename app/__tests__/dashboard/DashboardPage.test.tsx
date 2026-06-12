@@ -53,9 +53,9 @@ describe("DashboardPage", () => {
     expect(switches.length).toBe(4);
   });
 
-  it("renders emergency call button with tel:112", () => {
+  it("renders emergency call button", () => {
     renderDashboard();
-    const btn = screen.getByRole("link", { name: "Telepon Darurat 112" });
-    expect(btn).toHaveAttribute("href", "tel:112");
+    const btn = screen.getByRole("button", { name: "Telepon Darurat 112" });
+    expect(btn).toBeInTheDocument();
   });
 });

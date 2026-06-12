@@ -22,7 +22,7 @@ export function VaultCategoryTabs({ active, counts, onSelect }: VaultCategoryTab
   ];
 
   return (
-    <nav className="flex gap-1 border-b-2 border-border mb-3 overflow-x-auto" role="tablist" aria-label="Kategori berkas">
+    <nav className="flex gap-1 border-b-2 border-border mb-3 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]" role="tablist" aria-label="Kategori berkas">
       {tabs.map((tab) => (
         <button
           key={tab.value}

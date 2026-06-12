@@ -69,7 +69,7 @@ export default function JurnalAmanPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-display-md font-bold text-foreground">Jurnal Aman</h1>
+          <h1 className="text-title-lg sm:text-display-md font-bold text-foreground">Jurnal Aman</h1>
           <p className="text-sm text-muted-foreground mt-1">
             Ruang pribadi untuk mencatat pengalaman Anda.
           </p>

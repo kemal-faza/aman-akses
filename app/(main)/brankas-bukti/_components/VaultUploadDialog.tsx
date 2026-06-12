@@ -78,7 +78,7 @@ export function VaultUploadDialog({ open, onOpenChange, onUpload }: VaultUploadD
     if (fileInputRef.current) {
       if (method === "camera") {
         fileInputRef.current.accept = "image/*";
-        (fileInputRef.current as HTMLInputElement).capture = "environment" as unknown as boolean;
+        fileInputRef.current.setAttribute("capture", "environment");
       } else if (method === "recorder") {
         fileInputRef.current.accept = "audio/*";
       } else {

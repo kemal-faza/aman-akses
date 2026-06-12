@@ -20,7 +20,7 @@ function WizardContent() {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-display-md font-bold text-foreground">
+      <h1 className="text-title-lg sm:text-display-md font-bold text-foreground">
         Kronologi Kejadian
       </h1>
 

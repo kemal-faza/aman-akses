@@ -89,7 +89,7 @@ export function BrankasBuktiClient() {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-display-md font-bold text-foreground">
+          <h1 className="text-title-lg sm:text-display-md font-bold text-foreground">
             Brankas Bukti
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
@@ -138,7 +138,7 @@ export function BrankasBuktiClient() {
         </>
       )}
 
-      <div className="flex gap-4">
+      <div className="flex flex-col md:flex-row gap-4">
         <div className="flex-1 min-w-0">
           {state.isUnlocked ? (
             <VaultGrid
@@ -156,7 +156,7 @@ export function BrankasBuktiClient() {
           ) : null}
         </div>
         {state.isUnlocked && (
-          <div className="w-[200px] flex-shrink-0">
+          <div className="hidden md:block w-[200px] flex-shrink-0">
             <VaultSecurityPanel
               isUnlocked={state.isUnlocked}
               autoLockMinutes={Math.round(state.autoLockTimeoutMs / 60000)}

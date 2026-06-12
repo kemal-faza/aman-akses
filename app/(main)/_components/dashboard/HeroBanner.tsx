@@ -13,7 +13,7 @@ export function HeroBanner({ greeting }: HeroBannerProps) {
       <div className="flex-1">
         <h1
           id="hero-heading"
-          className="text-display-md font-bold leading-display-md tracking-display-md text-foreground"
+          className="text-title-lg sm:text-display-md font-bold leading-display-md tracking-display-md text-foreground"
         >
           {greeting}
         </h1>

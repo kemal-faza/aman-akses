@@ -35,7 +35,8 @@ type VaultAction =
   | { type: "SET_CATEGORY"; category: EvidenceCategory | "all" }
   | { type: "SET_FILTERS"; filters: Partial<VaultState["activeFilters"]> }
   | { type: "SET_AUTO_LOCK"; timeoutMs: number }
-  | { type: "RESET_ACTIVITY" };
+  | { type: "RESET_ACTIVITY" }
+  | { type: "SET_ENCRYPTION_KEY"; key: CryptoKey | null };
 
 function vaultReducer(state: VaultState, action: VaultAction): VaultState {
   switch (action.type) {
@@ -70,6 +71,8 @@ function vaultReducer(state: VaultState, action: VaultAction): VaultState {
       return { ...state, autoLockTimeoutMs: action.timeoutMs };
     case "RESET_ACTIVITY":
       return { ...state, lastActivity: Date.now() };
+    case "SET_ENCRYPTION_KEY":
+      return { ...state, encryptionKey: action.key };
     default:
       return state;
   }

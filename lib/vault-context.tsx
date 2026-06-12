@@ -122,6 +122,7 @@ export function VaultProvider({ children }: { children: ReactNode }) {
     if (!state.isUnlocked) return;
     const interval = setInterval(() => {
       if (Date.now() - state.lastActivity > state.autoLockTimeoutMs) {
+        dispatch({ type: "SET_ENCRYPTION_KEY", key: null });
         dispatch({ type: "SET_UNLOCKED", unlocked: false });
       }
     }, 10000);
